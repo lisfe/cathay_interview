@@ -89,7 +89,7 @@ class ObjectHandler(tornado.web.RequestHandler):
         self.set_header('Content-Type', 'application/json')
 
     def get(self):
-        pprint.pprint(self.request.arguments)
+        # pprint.pprint(self.request.arguments)
         result = {
             'parameter': {},
             'data': [],
@@ -125,7 +125,9 @@ class ObjectHandler(tornado.web.RequestHandler):
 
 
 def make_app():
-    mongo_client = pymongo.MongoClient()
+    mongo_host = '127.0.0.1'
+    mongo_port = 27017
+    mongo_client = pymongo.MongoClient(mongo_host, mongo_port)
     return tornado.web.Application([
         (r"/object", ObjectHandler, {'mongo_client': mongo_client}),
     ])
